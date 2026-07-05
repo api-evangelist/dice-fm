@@ -1,0 +1,161 @@
+aid: dice-fm
+url: https://raw.githubusercontent.com/api-evangelist/dice-fm/refs/heads/main/apis.yml
+name: DICE
+kind: company
+description: DICE is a live music and events ticketing platform (dice.fm) connecting
+  fans to gigs, club nights, festivals, and experiences, with a fan-facing mobile
+  app and a partner platform (MIO) for promoters, venues, and festivals. For partners,
+  DICE exposes a documented but access-gated GraphQL API - the Ticket Holders API at
+  partners-endpoint.dice.fm/graphql - that lets downstream systems query events,
+  tickets and ticket holders, orders and sales, returns and transfers, fans, and
+  venues. API tokens are generated inside MIO and passed as a Bearer authorization
+  header; the API is available to DICE partners rather than as an open self-service
+  developer program.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Ticketing
+- Live Music
+- Events
+- Tickets
+- GraphQL
+- Entertainment
+- Partner API
+created: '2026-07-05'
+modified: '2026-07-05'
+specificationVersion: '0.19'
+apis:
+- aid: dice-fm:dice-fm-events-api
+  name: DICE Events API
+  tags:
+  - Events
+  - Shows
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://partners-endpoint.dice.fm/graphql/docs/index.html
+  baseURL: https://partners-endpoint.dice.fm/graphql
+  properties:
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: Documentation
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: APIReference
+  - url: https://partners-endpoint.dice.fm/graphql
+    type: GraphQL
+  description: >-
+    Query a partner's events through the DICE Ticket Holders GraphQL API - event
+    name, state, start/end datetimes, currency, URL, artists, genres, ticket types,
+    price tiers, and total ticket allocation. Events are read via the authenticated
+    viewer.events cursor-paginated connection or fetched individually by node(id).
+    Endpoints are modeled from the published GraphQL schema documentation; live
+    access requires a partner token generated in MIO.
+- aid: dice-fm:dice-fm-tickets-api
+  name: DICE Tickets and Ticket Holders API
+  tags:
+  - Tickets
+  - Ticket Holders
+  - Access Control
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://partners-endpoint.dice.fm/graphql/docs/index.html
+  baseURL: https://partners-endpoint.dice.fm/graphql
+  properties:
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: Documentation
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: APIReference
+  - url: https://partners-endpoint.dice.fm/graphql
+    type: GraphQL
+  description: >-
+    Retrieve who currently holds a ticket for an event for access management and
+    attendance tracking - ticket code, ticket type, seat, full price, fees,
+    commission and DICE commission, the holder (fan), claim timestamp, and any
+    extras with separate access barcodes. Exposed as the tickets connection on an
+    event with cursor pagination and filters (for example ticketTypeId). Endpoints
+    are modeled from the published GraphQL schema; access is partner-gated.
+- aid: dice-fm:dice-fm-orders-sales-api
+  name: DICE Orders and Sales API
+  tags:
+  - Orders
+  - Sales
+  - Finance
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://partners-endpoint.dice.fm/graphql/docs/index.html
+  baseURL: https://partners-endpoint.dice.fm/graphql
+  properties:
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: Documentation
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: APIReference
+  - url: https://partners-endpoint.dice.fm/graphql
+    type: GraphQL
+  description: >-
+    Query orders and sales to understand event finances and feed sales into
+    business intelligence - purchase timestamp, quantity, sales channel, full
+    price, commission and DICE commission, fee breakdown, the purchasing fan, and
+    the tickets on each order. Orders support date-range filters (for example
+    purchasedAt gte) and cursor pagination. Endpoints are modeled from the
+    published GraphQL schema; access is partner-gated via a MIO token.
+- aid: dice-fm:dice-fm-returns-transfers-api
+  name: DICE Returns and Transfers API
+  tags:
+  - Returns
+  - Transfers
+  - Refunds
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://partners-endpoint.dice.fm/graphql/docs/index.html
+  baseURL: https://partners-endpoint.dice.fm/graphql
+  properties:
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: Documentation
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: APIReference
+  - url: https://partners-endpoint.dice.fm/graphql
+    type: GraphQL
+  description: >-
+    Track ticket returns and transfers - a Return links a ticket and order with a
+    returned-at timestamp and reason, and a TicketTransfer records tickets and
+    orders moved between fans with a transferred-at timestamp. Both support
+    date-range filtering (for example returnedAt gte) and cursor pagination.
+    Endpoints are modeled from the published GraphQL schema; access is
+    partner-gated.
+- aid: dice-fm:dice-fm-venues-api
+  name: DICE Venues API
+  tags:
+  - Venues
+  - Locations
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://partners-endpoint.dice.fm/graphql/docs/index.html
+  baseURL: https://partners-endpoint.dice.fm/graphql
+  properties:
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: Documentation
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: APIReference
+  - url: https://partners-endpoint.dice.fm/graphql
+    type: GraphQL
+  description: >-
+    Read venue details attached to events - venue name, type, age limit, address
+    fields, coordinates, and timezone. Venues are resolved through the events they
+    host on the Ticket Holders GraphQL schema. Endpoints are modeled from the
+    published schema documentation; live access requires a partner token.
+common:
+- type: GitHubOrganization
+  url: https://github.com/dicefm
+- type: LinkedIn
+  url: https://www.linkedin.com/company/dice-fm
+- type: Website
+  url: https://dice.fm
+- type: Documentation
+  url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+- type: Portal
+  url: https://mio.dice.fm/
+- type: SignUp
+  url: https://dice.fm/partners
+- type: Plans
+  url: plans/dice-fm-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/dice-fm-rate-limits.yml
+- type: FinOps
+  url: finops/dice-fm-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

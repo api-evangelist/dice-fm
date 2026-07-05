@@ -1,0 +1,58 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: DICE
+providerId: dice-fm
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Ticketing
+- Events
+- Partner API
+- GraphQL
+- Rate Limiting
+- Quotas
+description: >-
+  DICE does not publish fixed numeric rate limits for the Ticket Holders GraphQL
+  API. Access is partner-gated and scoped to the events a partner is authorized
+  to see, so effective request behavior is governed by the partner token and the
+  GraphQL query cost rather than a documented per-minute cap. Result volume is
+  controlled through cursor-based pagination (first/after/before/last with
+  PageInfo) instead of large unbounded responses.
+notes: >-
+  Numeric per-token or per-partner request limits are not documented as of the
+  review date. Design clients to page with reasonable page sizes, honor standard
+  HTTP throttling responses, and coordinate high-volume or backfill pulls with
+  DICE. Verify any published limits with DICE during reconciliation.
+sources:
+- https://partners-endpoint.dice.fm/graphql/docs/index.html
+- https://mio.dice.fm/
+responseCodes:
+  throttled: 429
+limits:
+- name: GraphQL API Requests
+  scope: token
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the Ticket Holders GraphQL API.
+- name: Query Result Pagination
+  scope: query
+  metric: records
+  limit: cursor-paginated
+  notes: Connections are paged with first/after/before/last and PageInfo (endCursor, hasNextPage) rather than a global record cap.
+- name: Data Scope
+  scope: partner
+  metric: events
+  limit: partner-authorized
+  notes: A token only returns data for events the partner is authorized to access in MIO.
+policies:
+- name: Cursor Pagination
+  description: Use PageInfo.endCursor and hasNextPage to walk large result sets in bounded pages instead of requesting everything at once.
+- name: Backoff Strategy
+  description: Implement exponential backoff with jitter and honor Retry-After on any 429 or throttling response.
+- name: Coordinated Bulk Pulls
+  description: For large historical or backfill queries, use date-range filters (for example purchasedAt gte / returnedAt gte) and coordinate high-volume access with DICE.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

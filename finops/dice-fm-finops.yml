@@ -1,0 +1,91 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: DICE
+providerId: dice-fm
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Ticketing
+- Events
+- Partner API
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of the DICE partner relationship. The DICE Ticket Holders GraphQL
+  API carries no separate published usage fee - it is provided to onboarded DICE
+  partners. The relevant spend / revenue flow is ticketing: DICE earns a booking
+  fee / commission on tickets sold, surfaced in the API as commission and
+  diceCommission on tickets and orders. For a partner consuming the API, cost is
+  primarily their own integration and infrastructure to pull and process the data,
+  not a DICE API invoice.
+notes: >-
+  DICE does not publish per-call API pricing; commercial terms are per partner
+  agreement. The commission and diceCommission fields in the API are the primary
+  data points for reconciling event finances. Verify partner terms with DICE
+  during reconciliation.
+sources:
+- https://dice.fm/partners
+- https://mio.dice.fm/
+- https://partners-endpoint.dice.fm/graphql/docs/index.html
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: DICE
+serviceCategory: Ticketing and Events
+billingModel:
+  pricingCategory: Commission-Based
+  billingFrequency: Per Transaction
+  billingCurrency: Multiple
+  chargeCategories:
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: DICE Ticketing
+  ServiceCategory: Ticketing and Events
+  ProviderName: DICE
+  PublisherName: DICE
+  InvoiceIssuerName: DICE
+  BillingCurrency: Multiple
+  ChargeCategory: Usage
+  PricingCategory: Commission-Based
+meters:
+- name: ticket_commission
+  description: Booking fee / commission DICE earns per ticket sold, surfaced as commission and diceCommission in the API.
+  unit: tickets
+  aggregation: sum
+  dimensions:
+  - event
+  - ticketType
+  - salesChannel
+- name: refund_returns
+  description: Returned tickets and refunds that adjust net sales, read from the Return entity.
+  unit: tickets
+  aggregation: sum
+  dimensions:
+  - event
+  - order
+- name: integration_compute
+  description: Partner-side infrastructure cost to query and process API data (no DICE invoice).
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - deployment
+principles:
+- name: Visibility
+  description: Pull tickets and orders with commission and diceCommission fields to see per-event, per-channel booking economics; track returns for net figures.
+- name: Allocation
+  description: Attribute sales and commission by event, ticket type, and sales channel to map revenue to shows and campaigns.
+- name: Optimization
+  description: Page with cursors and date-range filters to pull only needed rows, reducing partner-side compute and query overhead.
+- name: Accountability
+  description: Assign an owner per event or partner account to reconcile API-reported sales, commissions, and returns against DICE settlements.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

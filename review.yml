@@ -1,0 +1,86 @@
+aid: dice-fm
+name: DICE
+review:
+  question: Does DICE expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. DICE's documented partner API is the Ticket
+    Holders API, a GraphQL API served over HTTPS at
+    https://partners-endpoint.dice.fm/graphql. It is request/response GraphQL
+    (queries via viewer and node); no GraphQL subscriptions and no WebSocket
+    (ws:// or wss://) transport are documented on DICE's own partner API. There is
+    therefore no server-push transport to model in an AsyncAPI document.
+findings:
+  summary: |
+    DICE does not publish a documented public WebSocket API. DICE (dice.fm) is a
+    live-music and events ticketing platform. Its documented developer surface is
+    the partner-facing Ticket Holders API - a GraphQL API at
+    https://partners-endpoint.dice.fm/graphql with human-readable schema docs at
+    https://partners-endpoint.dice.fm/graphql/docs/index.html. Requests are
+    authenticated with a Bearer token generated inside the MIO partner platform
+    (mio.dice.fm). The API is request/response GraphQL over HTTPS - clients send
+    queries against the viewer root or fetch objects by node(id), with cursor-based
+    pagination (first/after/before/last and PageInfo). No realtime, bidirectional,
+    or streaming WebSocket endpoint, and no GraphQL subscription transport, is
+    documented on DICE's own API.
+  accessModel: |
+    The DICE Ticket Holders API is documented but access-gated to DICE partners
+    (promoters, venues, festivals). There is no open, self-service public developer
+    portal with instant key issuance; API tokens are generated within MIO by
+    partners who use DICE to sell tickets. The GraphQL schema and example queries
+    are publicly readable, so the surface can be honestly modeled, but live calls
+    require a partner relationship and a MIO-issued token.
+  transports:
+    - protocol: GraphQL
+      scheme: https
+      baseURL: https://partners-endpoint.dice.fm/graphql
+      documented: true
+      note: Ticket Holders API. Request/response GraphQL over HTTPS, Bearer token from MIO. Cursor-paginated connections; no subscriptions documented.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the DICE partner API as of the review date.
+  entitiesModeled:
+    - Event - name, state, startDatetime, endDatetime, currency, url, artists, genres, ticketTypes, totalTicketAllocationQty
+    - Ticket - code, ticketType, seat, fullPrice, fees, commission, diceCommission, holder, claimedAt
+    - Order - purchasedAt, quantity, salesChannel, fullPrice, commission, diceCommission, fan, tickets, returns
+    - Fan - firstName, lastName, email, dob, phoneNumber, optInPartners
+    - Venue - name, type, ageLimit, address, coordinates, timezone
+    - Return - ticket, order, returnedAt, reason
+    - TicketTransfer - tickets, orders, transferredAt
+    - Extra - code, product, holder, hasSeparateAccessBarcode
+  endpointsModeled: true
+  endpointsModeledNote: |
+    DICE's partner API is a single GraphQL endpoint (POST
+    https://partners-endpoint.dice.fm/graphql), not a set of REST paths. The
+    logical APIs in apis.yml (Events, Tickets/Ticket Holders, Orders/Sales,
+    Returns/Transfers, Venues) are modeled from the documented GraphQL schema and
+    example queries rather than from live, key-in-hand testing, because access is
+    partner-gated. Field and query names are taken from the public schema docs.
+sources:
+  - url: https://partners-endpoint.dice.fm/graphql/docs/index.html
+    type: Documentation
+    note: DICE Ticket Holders API GraphQL schema docs - endpoint, Bearer/MIO auth, entities (Event, Ticket, Order, Fan, Venue, Return, TicketTransfer), cursor pagination, example queries. No WebSocket or subscriptions.
+  - url: https://mio.dice.fm/
+    type: Portal
+    note: MIO partner platform where partners select events and generate API tokens.
+  - url: https://dice.fm/partners
+    type: SignUp
+    note: DICE for partners overview (promoters, venues, festivals).
+  - url: https://dice.fm/
+    type: Website
+    note: Fan-facing DICE live-music and events ticketing platform.
+  - url: https://github.com/dicefm
+    type: SourceCode
+    note: DICE GitHub organization. General engineering repos; no public API SDK or schema repo for the partner API.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on DICE's partner API. The documented
+    surface is a single request/response GraphQL endpoint (Ticket Holders API)
+    with no subscriptions, so no AsyncAPI document was created - there is no
+    server-push transport to model.

@@ -1,0 +1,81 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: DICE
+providerId: dice-fm
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Ticketing
+- Events
+- Partner API
+- GraphQL
+- Plans
+description: >-
+  DICE does not sell its Ticket Holders API as a standalone, metered developer
+  product. Access is a benefit of being a DICE partner (promoter, venue, or
+  festival) that sells tickets through the DICE platform. Partners manage events
+  and generate API tokens inside MIO (mio.dice.fm); the GraphQL API itself carries
+  no separate published per-call price. DICE's underlying commercial model is
+  ticketing: DICE earns a booking fee / commission on tickets sold, which appears
+  in the API data as commission and diceCommission fields. Exact partner
+  commercial terms are negotiated and not publicly reconciled here.
+notes: >-
+  There is no open self-service tier with instant API keys. To use the API you
+  must be an onboarded DICE partner and generate a token in MIO. Verify current
+  partner commercial terms directly with DICE during reconciliation.
+sources:
+- https://dice.fm/partners
+- https://mio.dice.fm/
+- https://partners-endpoint.dice.fm/graphql/docs/index.html
+plans:
+- id: dice-partner
+  name: DICE Partner (API Access)
+  type: partner
+  description: >-
+    API access is granted to onboarded DICE partners. Partners select events and
+    generate a Bearer API token in MIO, then query their own events, tickets,
+    orders, returns, transfers, and venues through the Ticket Holders GraphQL API.
+    The API has no separate published fee; the commercial relationship is the
+    ticketing agreement.
+  entries:
+  - label: Partner API Access
+    name: partner_api_access
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included with DICE partner agreement (no separate published API fee)
+    userMultiplied: false
+  elements:
+  - name: Ticket Holders GraphQL API
+  - name: MIO Token Generation
+  - name: Events, Tickets, Orders, Returns, Transfers, Venues
+- id: dice-ticketing-commission
+  name: DICE Ticketing Commission
+  type: usage
+  description: >-
+    DICE's underlying revenue model on the platform is a booking fee / commission
+    on each ticket sold. This is surfaced in the API as the commission and
+    diceCommission fields on tickets and orders rather than as an API charge.
+    Rates are set per partner agreement.
+  entries:
+  - label: Per-Ticket Commission
+    name: ticket_commission
+    type: usage
+    metric: tickets
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-ticket booking fee / commission (per partner agreement)
+    userMultiplied: false
+  elements:
+  - name: Booking Fee
+  - name: DICE Commission
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
