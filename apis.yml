@@ -138,6 +138,10 @@ apis:
     host on the Ticket Holders GraphQL schema. Endpoints are modeled from the
     published schema documentation; live access requires a partner token.
 common:
+- type: VulnerabilityDisclosure
+  url: security/dice-fm-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/dice-fm-domain-security.yml
 - type: GitHubOrganization
   url: https://github.com/dicefm
 - type: LinkedIn
