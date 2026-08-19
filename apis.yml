@@ -34,7 +34,7 @@ tags:
 - Partner API
 created: '2026-07-05'
 modified: '2026-07-05'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: dice-fm:dice-fm-events-api
   name: DICE Events API
