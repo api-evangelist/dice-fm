@@ -27,6 +27,14 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dice-fm.pn
 tags:
 - Ticketing
 - Live Music
+- Event
+- Tickets
+- GraphQL
+- Entertainment
+- Partner API
+tags_raw:
+- Ticketing
+- Live Music
 - Events
 - Tickets
 - GraphQL
@@ -39,6 +47,10 @@ apis:
 - aid: dice-fm:dice-fm-events-api
   name: DICE Events API
   tags:
+  - Event
+  - Shows
+  - GraphQL
+  tags_raw:
   - Events
   - Shows
   - GraphQL
@@ -63,6 +75,10 @@ apis:
   name: DICE Tickets and Ticket Holders API
   tags:
   - Tickets
+  - TicketHolders
+  - Access Control
+  tags_raw:
+  - Tickets
   - Ticket Holders
   - Access Control
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -85,6 +101,10 @@ apis:
 - aid: dice-fm:dice-fm-orders-sales-api
   name: DICE Orders and Sales API
   tags:
+  - Order
+  - Sales
+  - Finance
+  tags_raw:
   - Orders
   - Sales
   - Finance
