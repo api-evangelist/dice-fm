@@ -11,6 +11,17 @@ description: DICE is a live music and events ticketing platform (dice.fm) connec
   venues. API tokens are generated inside MIO and passed as a Bearer authorization
   header; the API is available to DICE partners rather than as an open self-service
   developer program.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
