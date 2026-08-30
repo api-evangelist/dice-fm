@@ -86,7 +86,7 @@ apis:
   name: DICE Tickets and Ticket Holders API
   tags:
   - Tickets
-  - TicketHolders
+  - Ticket Holders
   - Access Control
   tags_raw:
   - Tickets
