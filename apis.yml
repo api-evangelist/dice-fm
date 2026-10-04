@@ -36,7 +36,6 @@ tags:
 - Ticketing
 - Live Music
 - Event
-- Tickets
 - GraphQL
 - Entertainment
 - Partner API
@@ -80,7 +79,7 @@ apis:
 - aid: dice-fm:dice-fm-tickets-api
   name: DICE Tickets and Ticket Holders API
   tags:
-  - Tickets
+  - Ticketing
   - TicketHolders
   - Access Control
   tags_raw:
